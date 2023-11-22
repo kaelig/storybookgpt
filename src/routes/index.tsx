@@ -240,6 +240,17 @@ export default function Index() {
               href="https://github.com/ascorbic/daneel"
             >
               Daneel
+            </a>{" "}
+            by{" "}
+            <a className="tw-underline" href="https://twitter.com/kaelig">
+              Kaelig
+            </a>{" "}
+            ·{" "}
+            <a
+              className="tw-underline"
+              href="https://github.com/kaelig/storybookgpt"
+            >
+              Source
             </a>
           </p>
         </div>
