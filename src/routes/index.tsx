@@ -106,7 +106,7 @@ export default function Index() {
                   </div>
                   <div>
                     <h1 className="tw-my-2 tw-text-xl tw-font-semibold tw-leading-tight">
-                      React / TypeScript StorybookGPT
+                      StorybookGPT
                     </h1>
                     <p className="tw-text-gray-dark tw-text-lg [text-wrap:balance] tw-leading-snug">
                       Generate Storybook stories in React and TypeScript with
