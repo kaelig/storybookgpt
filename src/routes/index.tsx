@@ -75,7 +75,7 @@ export default function Index() {
   }, [chatHistory]);
 
   return (
-    <App title="Create your own AI chat bot">
+    <App title="StorybookGPT">
       <main className="tw-bg-white md:tw-rounded-lg md:tw-shadow-deep tw-p-6 tw-w-full tw-h-full tw-flex tw-flex-col">
         <section className="tw-overflow-y-auto tw-p-1 tw-flex-grow tw-mb-4 tw-pb-8 tw-justify-stretch">
           <div
