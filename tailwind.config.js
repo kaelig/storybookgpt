@@ -10,16 +10,16 @@ export default {
       sans: tokens.typographyFontsSans,
     },
     borderRadius: {
-      none: '0',
+      none: "0",
       sm: tokens.sizeBorderRadiusSmall,
       lg: tokens.sizeBorderRadiusBig,
       card: tokens.sizeBorderRadiusBig,
-      full: '9999px',
+      full: "9999px",
     },
     boxShadow: {
-      shallow: 'var(--shallowShadow)',
-      deep: 'var(--deepShadow)',
-      none: 'none'
+      shallow: "var(--shallowShadow)",
+      deep: "var(--deepShadow)",
+      none: "none",
     },
     colors: {
       transparent: "transparent",
@@ -102,22 +102,22 @@ export default {
       hr: "rgb(var(--colorHr) / <alpha-value>)",
     },
     fontSize: {
-      0: '0',
+      0: "0",
       xs: tokens.typographySizeTiny,
       sm: tokens.typographySizeSmall,
       base: tokens.typographySizeMedium,
       lg: tokens.typographySizeLarge,
       xl: tokens.typographySizeXl,
-      '2xl': tokens.typographySizeXxl,
-      '3xl': tokens.typographySizeXxxl,
-      '4xl': tokens.typographySize4xl,
+      "2xl": tokens.typographySizeXxl,
+      "3xl": tokens.typographySizeXxxl,
+      "4xl": tokens.typographySize4xl,
     },
     minHeight: ({ theme }) => ({
-      0: '0',
-      full: '100%',
-      screen: '100vh',
-      ...theme('spacing')
-  }),
+      0: "0",
+      full: "100%",
+      screen: "100vh",
+      ...theme("spacing"),
+    }),
   },
   plugins: [],
 };
