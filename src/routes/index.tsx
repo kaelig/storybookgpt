@@ -233,7 +233,7 @@ export default function Index() {
           </p>
         </section>
         <div className="tw-flex tw-justify-center">
-          <p className="tw-text-xs tw-text-gray-dark tw-mt-5">
+          <p className="tw-text-xs tw-text-gray-dark tw-mt-5 [text-wrap:balance]">
             Built with{" "}
             <a
               className="tw-underline"
