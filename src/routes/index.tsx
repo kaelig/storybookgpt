@@ -53,7 +53,7 @@ export default function Index() {
         if (lastMessage) {
           try {
             const code = lastMessage.content
-              .replace(/[\s\S]*```ts\n/, "")
+              .replace(/[\s\S]*```tsx\n/, "")
               .replace(/\n```[\s\S]*/, "");
 
             await navigator.clipboard.writeText(code);
@@ -76,7 +76,7 @@ export default function Index() {
   return (
     <App title="StorybookGPT">
       <main className="tw-bg-white md:tw-rounded-lg md:tw-shadow-deep tw-p-6 tw-w-full tw-h-full tw-flex tw-flex-col">
-        <section className="tw-overflow-y-auto tw-p-1 tw-flex-grow tw-mb-4 tw-pb-8 tw-justify-stretch">
+        <section className="tw-overflow-y-auto tw-pr-2 tw-flex-grow tw-mb-4 tw-pb-8 tw-justify-stretch">
           <div
             className={clsx(
               "tw-flex tw-flex-col tw-space-y-4 tw-justify-start",
@@ -105,10 +105,10 @@ export default function Index() {
                     />
                   </div>
                   <div>
-                    <h1 className="tw-text-xl tw-font-bold">
+                    <h1 className="tw-my-2 tw-text-xl tw-font-semibold tw-leading-tight">
                       React / TypeScript StorybookGPT
                     </h1>
-                    <p className="tw-text-gray-dark tw-text-lg [text-wrap:balance]">
+                    <p className="tw-text-gray-dark tw-text-lg [text-wrap:balance] tw-leading-snug">
                       Generate Storybook stories in React and TypeScript with
                       CSF v2
                     </p>
@@ -136,7 +136,7 @@ export default function Index() {
             </button>
           )}
         </div>
-        <section className="tw-bg-gray-100 tw-rounded-lg tw-p-2">
+        <section className="tw-my-2">
           <form
             className="tw-flex"
             onSubmit={(e) => {
@@ -177,9 +177,7 @@ export default function Index() {
               ref={textareaRef}
               value={message}
               className="tw-w-full tw-rounded-sm tw-py-2 tw-px-3 tw-border-teal tw-outline-none tw-border-2 tw-font-mono tw-min-h-40 tw-resize-none"
-              placeholder={
-                state == "idle" ? "Paste a component’s code..." : "..."
-              }
+              placeholder={state == "idle" ? "Paste React component…" : "…"}
               onChange={(e) => setMessage(e.target.value)}
               disabled={state !== "idle"}
               autoFocus
@@ -197,8 +195,8 @@ export default function Index() {
               </button>
             ) : null}
           </form>
-          <p className="tw-text-xs tw-text-gray-dark tw-pt-1 tw-flex tw-gap-8 tw-text-center tw-justify-center tw-mt-2">
-            <span>
+          <p className="tw-text-xs tw-text-gray-dark tw-pt-1 tw-flex sm:tw-gap-8 tw-gap-3 tw-text-center tw-justify-center tw-mt-2 sm:tw-flex-row tw-flex-col">
+            <span className="[text-wrap:balance]">
               Submit:{" "}
               <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 cmd
@@ -208,7 +206,7 @@ export default function Index() {
                 return
               </kbd>
             </span>
-            <span>
+            <span className="[text-wrap:balance]">
               Copy story:{" "}
               <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 cmd
@@ -222,11 +220,20 @@ export default function Index() {
                 C
               </kbd>
             </span>
-            <span>Clear chat: refresh the page</span>
+            <span className="[text-wrap:balance]">
+              Clear chat:{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                cmd
+              </kbd>{" "}
+              +{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                R
+              </kbd>
+            </span>
           </p>
         </section>
         <div className="tw-flex tw-justify-center">
-          <p className="tw-text-xxs tw-text-gray-dark tw-mt-5">
+          <p className="tw-text-xs tw-text-gray-dark tw-mt-5">
             Built with{" "}
             <a
               className="tw-underline"
