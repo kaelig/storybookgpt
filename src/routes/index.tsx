@@ -3,7 +3,6 @@ import { App } from "../App";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "../components/ChatMessage";
 import { appConfig } from "../../config.browser";
-import logo from "../assets/logo.png";
 import clsx from "clsx";
 
 const DISPLAY_CLEAR_BUTTON = false;
@@ -100,7 +99,7 @@ export default function Index() {
                 <div className="tw-text-center tw-flex tw-gap-2 tw-mt-4 tw-flex-col tw-flex-1 tw-justify-self-stretch">
                   <div className="after:content-[''] after:tw-rounded-full after:tw-absolute after:tw-border after:tw-border-black/20 tw-rounded-full tw-mx-auto tw-w-20 tw-aspect-square tw-relative after:tw-left-0 after:tw-top-0 after:tw-right-0 after:tw-bottom-0 tw-overflow-hidden">
                     <img
-                      src={logo}
+                      src="/logo.png"
                       alt=""
                       className="tw-absolute tw-l-0 tw-t-0"
                     />
