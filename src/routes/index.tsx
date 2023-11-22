@@ -198,35 +198,35 @@ export default function Index() {
           <p className="tw-text-xs tw-text-gray-dark tw-pt-1 tw-flex sm:tw-gap-8 tw-gap-3 tw-text-center tw-justify-center tw-mt-2 sm:tw-flex-row tw-flex-col">
             <span className="[text-wrap:balance]">
               Submit:{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 cmd
               </kbd>{" "}
               +{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 return
               </kbd>
             </span>
             <span className="[text-wrap:balance]">
               Copy story:{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 cmd
               </kbd>{" "}
               +{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 shift
               </kbd>{" "}
               +{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 C
               </kbd>
             </span>
             <span className="[text-wrap:balance]">
               Clear chat:{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 cmd
               </kbd>{" "}
               +{" "}
-              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
                 R
               </kbd>
             </span>
@@ -236,19 +236,25 @@ export default function Index() {
           <p className="tw-text-xs tw-text-gray-dark tw-mt-5 [text-wrap:balance]">
             Built with{" "}
             <a
-              className="tw-underline"
+              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
               href="https://github.com/ascorbic/daneel"
+              target="_blank"
             >
               Daneel
             </a>{" "}
             by{" "}
-            <a className="tw-underline" href="https://twitter.com/kaelig">
+            <a
+              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
+              href="https://twitter.com/kaelig"
+              target="_blank"
+            >
               Kaelig
             </a>{" "}
             ·{" "}
             <a
-              className="tw-underline"
+              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
               href="https://github.com/kaelig/storybookgpt"
+              target="_blank"
             >
               Source
             </a>
