@@ -2,10 +2,13 @@ import {
   FunctionComponent,
   DetailedHTMLProps,
   TableHTMLAttributes,
+  useState,
+  useEffect,
 } from "react";
 import ReactMarkdown from "react-markdown";
 import { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -24,8 +27,11 @@ const CustomTable: FunctionComponent<
     ReactMarkdownProps
 > = ({ children, ...props }) => {
   return (
-    <div className="overflow-x-auto">
-      <table {...props} className="w-full text-left border-collapse table-auto">
+    <div className="tw-overflow-x-auto tw-p-1">
+      <table
+        {...props}
+        className="tw-w-full tw-text-left tw-border-collapse tw-table-auto"
+      >
         {children}
       </table>
     </div>
@@ -39,23 +45,68 @@ const CustomTable: FunctionComponent<
 
 export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
   message,
-}) =>
-  message.role === "user" ? (
-    <div className="flex items-end justify-end">
-      <div className="bg-gray-300 border-gray-100 border-2 rounded-lg p-2 max-w-lg">
-        <p>{message.content}</p>
+}) => {
+  const [style, setStyle] = useState({});
+  useEffect(() => {
+    import("react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus").then(
+      (mod) => setStyle(mod.default)
+    );
+  });
+
+  return message.role === "user" ? (
+    <div className="tw-flex tw-items-end tw-justify-end">
+      <div className="tw-max-w-lg">
+        <ReactMarkdown
+          children={"```ts\n" + message.content + "\n```"}
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code(props) {
+              const { children, className, node, ...rest } = props;
+
+              return (
+                <SyntaxHighlighter
+                  {...rest}
+                  PreTag="div"
+                  children={String(children).replace(/\n$/, "")}
+                  language="tsx"
+                  style={style}
+                  className="tw-rounded-sm"
+                />
+              );
+            },
+          }}
+        />
       </div>
     </div>
   ) : (
-    <div className="flex items-end">
-      <div className="bg-gray-100 border-gray-300 border-2 rounded-lg p-2 mr-20 w-full">
+    <div className="tw-flex tw-items-end">
+      <div className="tw-bg-gray-lightest tw-border-gray-light tw-border tw-rounded-lg tw-p-2 tw-mr-20 tw-w-full">
         <ReactMarkdown
           children={message.content}
           remarkPlugins={[remarkGfm]}
           components={{
             table: CustomTable,
+            code(props) {
+              const { children, className, node, ...rest } = props;
+              const match = /language-(\w+)/.exec(className || "");
+              return match ? (
+                <SyntaxHighlighter
+                  {...rest}
+                  PreTag="div"
+                  children={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                  style={style}
+                  className="tw-rounded-sm"
+                />
+              ) : (
+                <code {...rest} className={className}>
+                  {children}
+                </code>
+              );
+            },
           }}
         />
       </div>
     </div>
   );
+};

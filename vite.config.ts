@@ -4,4 +4,7 @@ import impala from "@impalajs/core/plugin";
 
 export default defineConfig({
   plugins: [react(), impala()],
+  esbuild: {
+    target: "es2020",
+  }
 });

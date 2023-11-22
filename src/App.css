@@ -1,3 +1,267 @@
+@import "@netlify/netlify-design-tokens/dist/css/color.rgb.css";
+@import "@netlify/netlify-design-tokens/dist/css/shadow.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Color Palette: Neutral colors */
+    --colorBlack: var(--colorRgbFacetsNeutralLight800);
+  
+    --colorGrayDarkest:  var(--colorRgbFacetsNeutralLight700);
+    --colorGrayDarker:   var(--colorRgbFacetsNeutralLight600);
+    --colorGrayDark:     var(--colorRgbFacetsNeutralLight500);
+    --colorGray:         var(--colorRgbFacetsNeutralLight400);
+    --colorGrayLight:    var(--colorRgbFacetsNeutralLight300);
+    --colorGrayLighter:  var(--colorRgbFacetsNeutralLight200);
+    --colorGrayLightest: var(--colorRgbFacetsNeutralLight100);
+    --colorWhite:        var(--colorRgbFacetsNeutralLight000);
+  
+    /* Color Palette: Primary colors (teal)  */
+    --colorTealDarkest:  var(--colorRgbFacetsTeal800);
+    --colorTealDarker:   var(--colorRgbFacetsTeal500);
+    --colorTeal:         var(--colorRgbFacetsTeal200);
+    --colorTealLighter:  var(--colorRgbFacetsTeal100);
+    --colorTealLightest: var(--colorRgbFacetsTeal000);
+  
+    /* Color Palette: Primary colors (blue) */
+    --colorBlueDarkest:  var(--colorRgbFacetsBlue900);
+    --colorBlueDarker:   var(--colorRgbFacetsBlue800);
+    --colorBlue:         var(--colorRgbFacetsBlue700);
+    --colorBlueLighter:  var(--colorRgbFacetsBlue100);
+    --colorBlueLightest: var(--colorRgbFacetsBlue000);
+  
+    /* Color Palette: Primary colors (gold) */
+    --colorGoldDarkest:  var(--colorRgbFacetsGold800);
+    --colorGoldDarker:   var(--colorRgbFacetsGold500);
+    --colorGold:         var(--colorRgbFacetsGold300);
+    --colorGoldLighter:  var(--colorRgbFacetsGold100);
+    --colorGoldLightest: var(--colorRgbFacetsGold000);
+  
+    /* Color Palette: Primary colors (red) */
+    --colorRedDarkest:  var(--colorRgbFacetsRed800);
+    --colorRedDarker:   var(--colorRgbFacetsRed600);
+    --colorRed:         var(--colorRgbFacetsRed400);
+    --colorRedLighter:  var(--colorRgbFacetsRed100);
+    --colorRedLightest: var(--colorRgbFacetsRed000);
+  
+    /* Color Palette: Primary colors (green)  */
+    --colorGreenDarkest:  var(--colorRgbFacetsGreen800);
+    --colorGreenDarker:   var(--colorRgbFacetsGreen500);
+    --colorGreen:         var(--colorRgbFacetsGreen300);
+    --colorGreenLighter:  var(--colorRgbFacetsGreen100);
+    --colorGreenLightest: var(--colorRgbFacetsGreen000);
+  
+    /* Color Palette: Primary colors (purple)  */
+    --colorPurpleDarkest:  var(--colorRgbFacetsPurple800);
+    --colorPurpleDarker:   var(--colorRgbFacetsPurple500);
+    --colorPurple:         var(--colorRgbFacetsPurple300);
+    --colorPurpleLighter:  var(--colorRgbFacetsPurple100);
+    --colorPurpleLightest: var(--colorRgbFacetsPurple000);
+  
+    /* Color Palette: Primary colors (pink)  */
+    --colorPinkDarkest:  var(--colorRgbFacetsPink800);
+    --colorPinkDarker:   var(--colorRgbFacetsPink500);
+    --colorPink:         var(--colorRgbFacetsPink300);
+    --colorPinkLighter:  var(--colorRgbFacetsPink100);
+    --colorPinkLightest: var(--colorRgbFacetsPink000);
+  
+    /* Color Palette: Other */
+    --colorBgApp: var(--colorRgbFacetsNeutralLight000);
+  
+    /* Background colors */
+    --colorBg: rgb(var(--colorBlack) / 2%);
+    --colorBgHover: rgb(var(--colorBlack) / 3%);
+    --colorBgInverse: var(--colorBlack);
+    --colorBgDanger: var(--colorRgbFacetsRed600);
+    --colorBgDangerHover: var(--colorRgbFacetsRed700);
+  
+    /* Text color: */
+    --colorTextLoud: var(--colorBlack);
+    --colorText: var(--colorGrayDarkest);
+    --colorTextMuted: var(--colorGrayDarker);
+    --colorPlaceholder: var(--colorGrayDark);
+    --colorTextInverse: var(--colorWhite);
+    --colorTextMutedInverse: var(--colorGrayDark);
+    --colorHr: var(--colorGrayLighter);
+  
+    /**
+     * Drop Shadows
+     */
+    --shallowShadow: var(--effectShadowLightShallow);
+    --deepShadow: var(--effectShadowLightDeep);
+  
+    /**
+     * Overlay
+     */
+    --colorOverlay: rgb(var(--colorGrayDarkest) / 70%);
+  
+    /**
+     * Background gradients
+     */
+  
+    /* stylelint-disable function-disallowed-list -- HSL is okay for gradients */
+  
+    /* Based on colorGrayLighter */
+    --listLoaderGradient:
+      linear-gradient(
+        to right,
+        hsl(210deg 10% 92%) 8%,
+        hsl(210deg 10% 90%) 18%,
+        hsl(210deg 10% 92%) 33%
+      );
+  
+    /* Based on colorGrayLighter */
+    --listLoaderGradientStatic:
+      repeating-linear-gradient(
+        135deg,
+        hsl(210deg 10% 92%) 20px,
+        hsl(210deg 10% 90%) 40px,
+        hsl(210deg 10% 92%) 60px,
+        hsl(210deg 10% 92%) 100px
+      );
+    /* stylelint-enable function-disallowed-list */
+    --fadedGradient:
+      linear-gradient(
+        rgb(255 255 255 / 0%) 0%,
+        rgb(255 255 255 / 100%) 100%
+      );
+  
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    color-scheme: light;
+  }
+  
+  /* DARK THEME */
+  
+  .tw-dark {
+    /* Color Palette: Neutral colors */
+    --colorBlack:        var(--colorRgbFacetsNeutralDark800);
+    --colorBlackDarker:  var(--colorRgbFacetsNeutralDark900);
+    --colorGrayDarkest:  var(--colorRgbFacetsNeutralDark700);
+    --colorGrayDarker:   var(--colorRgbFacetsNeutralDark600);
+    --colorGrayDark:     var(--colorRgbFacetsNeutralDark500);
+    --colorGray:         var(--colorRgbFacetsNeutralDark400);
+    --colorGrayLight:    var(--colorRgbFacetsNeutralDark300);
+    --colorGrayLighter:  var(--colorRgbFacetsNeutralDark200);
+    --colorGrayLightest: var(--colorRgbFacetsNeutralDark100);
+  
+    /* Color Palette: Primary colors (teal) */
+    --colorTealDarkest:  var(--colorRgbFacetsTeal900);
+    --colorTealDarker:   var(--colorRgbFacetsTeal700);
+    --colorTeal:         var(--colorRgbFacetsTeal500);
+    --colorTealLighter:  var(--colorRgbFacetsTeal200);
+    --colorTealLightest: var(--colorRgbFacetsTeal100);
+  
+    /* Color Palette: Primary colors (blue) */
+    --colorBlueDarkest:   var(--colorRgbFacetsBlue900);
+    --colorBlueDarker:    var(--colorRgbFacetsBlue800);
+    --colorBlue:          var(--colorRgbFacetsBlue700);
+    --colorBlueLighter:   var(--colorRgbFacetsBlue500);
+    --colorBlueLightest:  var(--colorRgbFacetsBlue100);
+  
+    /* Color Palette: Primary colors (gold) */
+    --colorGoldDarkest:  var(--colorRgbFacetsGold900);
+    --colorGoldDarker:   var(--colorRgbFacetsGold600);
+    --colorGold:         var(--colorRgbFacetsGold400);
+    --colorGoldLighter:  var(--colorRgbFacetsGold200);
+    --colorGoldLightest: var(--colorRgbFacetsGold100);
+  
+    /* Color Palette: Primary colors (red) */
+    --colorRedDarkest:  var(--colorRgbFacetsRed900);
+    --colorRedDarker:   var(--colorRgbFacetsRed700);
+    --colorRed:         var(--colorRgbFacetsRed500);
+    --colorRedLighter:  var(--colorRgbFacetsRed300);
+    --colorRedLightest: var(--colorRgbFacetsRed100);
+  
+    /* Color Palette: Primary colors (green) */
+    --colorGreenDarkest:  var(--colorRgbFacetsGreen900);
+    --colorGreenDarker:   var(--colorRgbFacetsGreen700);
+    --colorGreen:         var(--colorRgbFacetsGreen500);
+    --colorGreenLighter:  var(--colorRgbFacetsGreen200);
+    --colorGreenLightest: var(--colorRgbFacetsGreen100);
+  
+    /* Color Palette: Primary colors (purple) */
+    --colorPurpleDarkest:  var(--colorRgbFacetsPurple900);
+    --colorPurpleDarker:   var(--colorRgbFacetsPurple700);
+    --colorPurple:         var(--colorRgbFacetsPurple500);
+    --colorPurpleLighter:  var(--colorRgbFacetsPurple200);
+    --colorPurpleLightest: var(--colorRgbFacetsPurple100);
+  
+    /* Drop Shadows */
+    --shallowShadow: var(--effectShadowDarkShallow);
+    --deepShadow: var(--effectShadowDarkDeep);
+  
+    /**
+     * Overlay
+     */
+    --colorOverlay: rgb(var(--colorBlackDarker) / 70%);
+  
+    /**
+     * Background gradients
+     */
+  
+    /* stylelint-disable function-disallowed-list -- HSL is okay for gradients */
+  
+    /* Based on colorGrayDarkest */
+    --listLoaderGradient:
+      linear-gradient(
+        to right,
+        hsl(214deg 19% 14.5%) 8%,
+        hsl(214deg 19% 16.5%) 18%,
+        hsl(214deg 19% 14.5%) 33%
+      );
+  
+    /* Based on colorGrayDarkest */
+    --listLoaderGradientStatic:
+      repeating-linear-gradient(
+        135deg,
+        hsl(214deg 19% 14.5%) 20px,
+        hsl(214deg 19% 16.5%) 40px,
+        hsl(214deg 19% 14.5%) 60px,
+        hsl(214deg 19% 14.5%) 100px
+      );
+    /* stylelint-enable function-disallowed-list */
+    --fadedGradient:
+      linear-gradient(
+        rgb(var(--colorBlack) / 0%) 0%,
+        rgb(var(--colorBlack) / 100%) 100%
+      );
+  
+    /* Color Palette: Other */
+    --colorBgApp: var(--colorRgbFacetsNeutralDark900);
+  
+    /* Background colors */
+    --colorBg: rgb(var(--colorWhite) / 3%);
+    --colorBgHover: rgb(var(--colorWhite) / 4%);
+    --colorBgInverse: var(--colorRgbFacetsNeutralDark700);
+    --colorBgDanger: var(--colorRgbFacetsRed800);
+    --colorBgDangerHover: var(--colorRgbFacetsRed700);
+  
+    /* Text color: */
+    --colorTextLoud: var(--colorWhite);
+    --colorText: var(--colorRgbFacetsNeutralDark000);
+    --colorTextMuted: var(--colorGrayLighter);
+    --colorPlaceholder: var(--colorGrayLighter);
+    --colorTextInverse: var(--colorWhite);
+    --colorTextMutedInverse: var(--colorGrayLight);
+    --colorHr: var(--colorGrayDarker);
+  
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    color-scheme: dark;
+  }
+  
+
+  a, button {
+    @apply focus:tw-outline-2 focus:tw-outline-teal focus:tw-outline-offset-1;
+  }
+ 
+  html, body {
+    color: rgb(var(--colorText));
+  }
+
+  body, input, button {
+    @apply tw-text-xs;
+  }
+}

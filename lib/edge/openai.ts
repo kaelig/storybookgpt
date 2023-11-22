@@ -41,7 +41,7 @@ export function getChatStream(
     signal: ctrl.signal,
     body: JSON.stringify({
       ...options,
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       stream: true,
     }),
   });
@@ -51,7 +51,7 @@ export function getChatStream(
 export function sanitizeMessages(
   messages: ChatCompletionOptions["messages"],
   historyLength = 8,
-  maxMessageLength = 1000
+  maxMessageLength = 4096
 ): ChatCompletionOptions["messages"] {
   return messages.slice(-historyLength).map(({ content, role }) => {
     if (role !== "assistant" && role !== "user") {

@@ -3,7 +3,11 @@ import { App } from "../App";
 import { useChat } from "../hooks/use-chat";
 import { ChatMessage } from "../components/ChatMessage";
 import { appConfig } from "../../config.browser";
-import { Welcome } from "../components/Welcome";
+import logo from "../assets/logo.png";
+import clsx from "clsx";
+
+const DISPLAY_CLEAR_BUTTON = false;
+const DISPLAY_SUBMIT_BUTTON = false;
 
 export default function Index() {
   // The content of the box where the user is typing
@@ -33,44 +37,83 @@ export default function Index() {
 
   // This is a ref to the input box. We use it to focus the input box when the
   // user clicks on the "Send" button.
-  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const focusInput = () => {
-    inputRef.current?.focus();
+    textareaRef.current?.focus();
   };
 
   useEffect(() => {
     focusInput();
   }, [state]);
 
+  useEffect(() => {
+    const handleCopy = async (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === "c") {
+        e.preventDefault();
+        const lastMessage = chatHistory[chatHistory.length - 1];
+        if (lastMessage) {
+          try {
+            const code = lastMessage.content
+              .replace(/[\s\S]*```ts\n/, "")
+              .replace(/\n```[\s\S]*/, "");
+
+            await navigator.clipboard.writeText(code);
+            alert("Story code response copied to clipboard");
+          } catch (err) {
+            console.error("Failed to copy text: ", err);
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleCopy);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("keydown", handleCopy);
+    };
+  }, [chatHistory]);
+
   return (
     <App title="Create your own AI chat bot">
-      <main className="bg-white md:rounded-lg md:shadow-md p-6 w-full h-full flex flex-col">
-        <section className="overflow-y-auto flex-grow mb-4 pb-8">
-          <div className="flex flex-col space-y-4">
+      <main className="tw-bg-white md:tw-rounded-lg md:tw-shadow-deep tw-p-6 tw-w-full tw-h-full tw-flex tw-flex-col">
+        <section className="tw-overflow-y-auto tw-p-1 tw-flex-grow tw-mb-4 tw-pb-8 tw-justify-stretch">
+          <div
+            className={clsx(
+              "tw-flex tw-flex-col tw-space-y-4 tw-justify-start",
+              chatHistory.length === 0 && "tw-h-full"
+            )}
+          >
             {chatHistory.length === 0 ? (
               <>
-                <Welcome />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="tw-grid tw-flex-1 tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
                   {appConfig.samplePhrases.map((phrase) => (
                     <button
                       key={phrase}
                       onClick={() => sendMessage(phrase, chatHistory)}
-                      className="bg-gray-100 border-gray-300 border-2 rounded-lg p-4"
+                      className="tw-bg-gray-lightest tw-border-gray-lighter tw-border tw-rounded-lg tw-p-4"
                     >
                       {phrase}
                     </button>
                   ))}
                 </div>
-                <div className="flex justify-center">
-                  <p className="text-sm text-gray-500 mt-5">
-                    Built with 🤖{" "}
-                    <a
-                      className="underline"
-                      href="https://github.com/ascorbic/daneel"
-                    >
-                      Daneel
-                    </a>
-                  </p>
+                <div className="tw-text-center tw-flex tw-gap-2 tw-mt-4 tw-flex-col tw-flex-1 tw-justify-self-stretch">
+                  <div className="after:content-[''] after:tw-rounded-full after:tw-absolute after:tw-border after:tw-border-black/20 tw-rounded-full tw-mx-auto tw-w-20 tw-aspect-square tw-relative after:tw-left-0 after:tw-top-0 after:tw-right-0 after:tw-bottom-0 tw-overflow-hidden">
+                    <img
+                      src={logo}
+                      alt=""
+                      className="tw-absolute tw-l-0 tw-t-0"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="tw-text-xl tw-font-bold">
+                      React / TypeScript StorybookGPT
+                    </h1>
+                    <p className="tw-text-gray-dark tw-text-lg [text-wrap:balance]">
+                      Generate Storybook stories in React and TypeScript with
+                      CSF v2
+                    </p>
+                  </div>
                 </div>
               </>
             ) : (
@@ -84,28 +127,39 @@ export default function Index() {
 
           <div ref={bottomRef} />
         </section>
-        <div className="flex items-center justify-center h-20">
+        <div className="tw-flex tw-items-center tw-justify-center tw-h-20">
           {state === "idle" ? null : (
             <button
-              className="bg-gray-100 text-gray-900 py-2 px-4 my-8"
+              className="tw-bg-gray-lightest tw-text-gray-darker tw-py-2 tw-px-4 tw-my-8 tw-border tw-border-gray-lighter tw-rounded-lg"
               onClick={cancel}
             >
-              Stop generating
+              ⃞ Stop generating
             </button>
           )}
         </div>
-        <section className="bg-gray-100 rounded-lg p-2">
+        <section className="tw-bg-gray-100 tw-rounded-lg tw-p-2">
           <form
-            className="flex"
+            className="tw-flex"
             onSubmit={(e) => {
               e.preventDefault();
               sendMessage(message, chatHistory);
               setMessage("");
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                sendMessage(message, chatHistory);
+                setMessage("");
+              }
+              if (e.key === "Escape") {
+                e.preventDefault();
+                setMessage("");
+              }
+            }}
           >
-            {chatHistory.length > 1 ? (
+            {DISPLAY_CLEAR_BUTTON && chatHistory.length > 1 ? (
               <button
-                className="bg-gray-100 text-gray-600 py-2 px-4 rounded-l-lg"
+                className="tw-bg-gray-lightest tw-text-gray-darker tw-py-2 tw-px-4 tw-rounded-l-lg tw-border-gray-dark tw-border"
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
@@ -116,25 +170,73 @@ export default function Index() {
                 Clear
               </button>
             ) : null}
-            <input
-              type="text"
-              ref={inputRef}
-              className="w-full rounded-l-lg p-2 outline-none"
-              placeholder={state == "idle" ? "Type your message..." : "..."}
+            <label htmlFor="message" className="tw-sr-only">
+              Message
+            </label>
+            <textarea
+              id="message"
+              ref={textareaRef}
               value={message}
+              className="tw-w-full tw-rounded-sm tw-py-2 tw-px-3 tw-border-teal tw-outline-none tw-border-2 tw-font-mono tw-min-h-40 tw-resize-none"
+              placeholder={
+                state == "idle" ? "Paste a component’s code..." : "..."
+              }
               onChange={(e) => setMessage(e.target.value)}
               disabled={state !== "idle"}
-            />
-            {state === "idle" ? (
+              autoFocus
+              data-enable-grammarly="false"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+            ></textarea>
+            {DISPLAY_SUBMIT_BUTTON && state === "idle" ? (
               <button
-                className="bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg"
+                className="tw-bg-teal tw-text-teal-darkest tw-font-bold tw-py-2 tw-px-4 tw-rounded-r-lg tw--ml-[1px] tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-1 focus:tw-ring-teal"
                 type="submit"
               >
                 Send
               </button>
             ) : null}
           </form>
+          <p className="tw-text-xs tw-text-gray-dark tw-pt-1 tw-flex tw-gap-8 tw-text-center tw-justify-center tw-mt-2">
+            <span>
+              Submit:{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                cmd
+              </kbd>{" "}
+              +{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                return
+              </kbd>
+            </span>
+            <span>
+              Copy story:{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                cmd
+              </kbd>{" "}
+              +{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                shift
+              </kbd>{" "}
+              +{" "}
+              <kbd className="tw-px-1 tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
+                C
+              </kbd>
+            </span>
+            <span>Clear chat: refresh the page</span>
+          </p>
         </section>
+        <div className="tw-flex tw-justify-center">
+          <p className="tw-text-xxs tw-text-gray-dark tw-mt-5">
+            Built with{" "}
+            <a
+              className="tw-underline"
+              href="https://github.com/ascorbic/daneel"
+            >
+              Daneel
+            </a>
+          </p>
+        </div>
       </main>
     </App>
   );

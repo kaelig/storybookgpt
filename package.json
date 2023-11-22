@@ -15,19 +15,23 @@
     "@fortaine/fetch-event-source": "^3.0.6",
     "@impalajs/core": "*",
     "@impalajs/react": "*",
+    "@netlify/netlify-design-tokens": "^6.0.0-rc.3",
+    "clsx": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.6",
+    "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.7",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.1",
-    "typescript": "^4.9.3",
-    "vite": "^4.2.0"
+    "@types/react-syntax-highlighter": "^15.5.10",
+    "@vitejs/plugin-react": "^4.2.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.2"
   }
 }
