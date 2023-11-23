@@ -75,8 +75,8 @@ export default function Index() {
 
   return (
     <App title="StorybookGPT">
-      <main className="tw-bg-white md:tw-rounded-lg md:tw-shadow-deep tw-p-6 tw-w-full tw-h-full tw-flex tw-flex-col">
-        <section className="tw-overflow-y-auto tw-pr-2 tw-flex-grow tw-mb-4 tw-pb-8 tw-justify-stretch">
+      <main className="tw-bg-white md:tw-rounded-lg md:tw-shadow-2xl tw-p-6 tw-w-full tw-flex tw-flex-col tw-h-full">
+        <section className="tw-overflow-y-auto tw-pr-2 tw-flex-grow tw-pb-8 tw-justify-stretch">
           <div
             className={clsx(
               "tw-flex tw-flex-col tw-space-y-4 tw-justify-start",
@@ -85,18 +85,20 @@ export default function Index() {
           >
             {chatHistory.length === 0 ? (
               <>
-                <div className="tw-grid tw-flex-1 tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
-                  {appConfig.samplePhrases.map((phrase) => (
-                    <button
-                      key={phrase}
-                      onClick={() => sendMessage(phrase, chatHistory)}
-                      className="tw-bg-gray-lightest tw-border-gray-lighter tw-border tw-rounded-lg tw-p-4"
-                    >
-                      {phrase}
-                    </button>
-                  ))}
-                </div>
-                <div className="tw-text-center tw-flex tw-gap-2 tw-mt-4 tw-flex-col tw-flex-1 tw-justify-self-stretch">
+                {appConfig.samplePhrases.length > 0 && (
+                  <div className="tw-grid tw-flex-1 tw-grid-cols-1 md:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4">
+                    {appConfig.samplePhrases.map((phrase) => (
+                      <button
+                        key={phrase}
+                        onClick={() => sendMessage(phrase, chatHistory)}
+                        className="tw-bg-slate-100 tw-border-slate-200 tw-border tw-rounded-lg tw-p-4"
+                      >
+                        {phrase}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className="tw-text-center tw-flex tw-gap-2 tw-flex-col tw-flex-1 tw-justify-center">
                   <div className="after:content-[''] after:tw-rounded-full after:tw-absolute after:tw-border after:tw-border-black/20 tw-rounded-full tw-mx-auto tw-w-20 tw-aspect-square tw-relative after:tw-left-0 after:tw-top-0 after:tw-right-0 after:tw-bottom-0 tw-overflow-hidden">
                     <img
                       src="/logo.png"
@@ -105,12 +107,12 @@ export default function Index() {
                     />
                   </div>
                   <div>
-                    <h1 className="tw-my-2 tw-text-xl tw-font-semibold tw-leading-tight">
+                    <h1 className="tw-my-2 tw-text-xl tw-font-semibold tw-leading-tight tw-text-slate-900">
                       StorybookGPT
                     </h1>
-                    <p className="tw-text-gray-dark tw-text-lg [text-wrap:balance] tw-leading-snug">
+                    <p className="tw-text-slate-500 tw-text-lg [text-wrap:balance] tw-leading-snug">
                       Generate Storybook stories in React and TypeScript with
-                      CSF v2
+                      CSF 2.0
                     </p>
                   </div>
                 </div>
@@ -126,19 +128,23 @@ export default function Index() {
 
           <div ref={bottomRef} />
         </section>
-        <div className="tw-flex tw-items-center tw-justify-center tw-h-20">
+        <div
+          className={clsx(
+            "tw-flex tw-items-center tw-justify-center",
+            state === "idle" && "tw-pt-1"
+          )}
+        >
           {state === "idle" ? null : (
             <button
-              className="tw-bg-gray-lightest tw-text-gray-darker tw-py-2 tw-px-4 tw-my-8 tw-border tw-border-gray-lighter tw-rounded-lg"
+              className="tw-bg-slate-100 tw-text-slate-800 tw-py-2 tw-px-3 tw-border tw-border-slate-200 tw-rounded-lg tw-text-sm"
               onClick={cancel}
             >
-              ⃞ Stop generating
+              <span className="tw-font-bold"> ⃞</span> Stop generating
             </button>
           )}
         </div>
         <section className="tw-my-2">
           <form
-            className="tw-flex"
             onSubmit={(e) => {
               e.preventDefault();
               sendMessage(message, chatHistory);
@@ -156,110 +162,122 @@ export default function Index() {
               }
             }}
           >
-            {DISPLAY_CLEAR_BUTTON && chatHistory.length > 1 ? (
-              <button
-                className="tw-bg-gray-lightest tw-text-gray-darker tw-py-2 tw-px-4 tw-rounded-l-lg tw-border-gray-dark tw-border"
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  clear();
-                  setMessage("");
-                }}
-              >
-                Clear
-              </button>
-            ) : null}
-            <label htmlFor="message" className="tw-sr-only">
-              Message
-            </label>
-            <textarea
-              id="message"
-              ref={textareaRef}
-              value={message}
-              className="tw-w-full tw-rounded-sm tw-py-2 tw-px-3 tw-border-teal tw-outline-none tw-border-2 tw-font-mono tw-min-h-40 tw-resize-none"
-              placeholder={state == "idle" ? "Paste React component…" : "…"}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={state !== "idle"}
-              autoFocus
-              data-enable-grammarly="false"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-            ></textarea>
-            {DISPLAY_SUBMIT_BUTTON && state === "idle" ? (
-              <button
-                className="tw-bg-teal tw-text-teal-darkest tw-font-bold tw-py-2 tw-px-4 tw-rounded-r-lg tw--ml-[1px] tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-1 focus:tw-ring-teal"
-                type="submit"
-              >
-                Send
-              </button>
-            ) : null}
+            <div className="tw-flex">
+              {DISPLAY_CLEAR_BUTTON && chatHistory.length > 1 ? (
+                <button
+                  className="tw-bg-slate-100 tw-text-slate-800 tw-py-2 tw-px-4 tw-rounded-l-lg tw-border-slate-300 tw-border"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    clear();
+                    setMessage("");
+                  }}
+                >
+                  Clear
+                </button>
+              ) : null}
+              <label htmlFor="message" className="tw-sr-only">
+                Message
+              </label>
+              <textarea
+                id="message"
+                ref={textareaRef}
+                value={message}
+                className="tw-w-full tw-rounded-lg tw-py-[10px] tw-px-3 tw-border-slate-300 tw-outline-none tw-border tw-font-mono tw-min-h-40 tw-resize-none tw-placeholder-slate-400 tw-text-sm tw-text-slate-700 tw-shadow"
+                placeholder={
+                  state == "idle" ? "Paste React component code…" : "…"
+                }
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={state !== "idle"}
+                autoFocus
+                data-enable-grammarly="false"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+              ></textarea>
+              {DISPLAY_SUBMIT_BUTTON && state === "idle" ? (
+                <button
+                  className="tw-bg-teal tw-text-teal-darkest tw-font-bold tw-py-2 tw-px-4 tw-rounded-r-lg tw--ml-[1px] tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-1 focus:tw-ring-teal"
+                  type="submit"
+                >
+                  Send
+                </button>
+              ) : null}
+            </div>
+            <p className="tw-text-xs tw-text-slate-500 tw-pt-1 tw-flex sm:tw-gap-8 tw-gap-3 tw-text-center tw-justify-center tw-mt-2 sm:tw-flex-row tw-flex-col">
+              <span className="[text-wrap:balance]">
+                Submit:{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  cmd
+                </kbd>{" "}
+                +{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  return
+                </kbd>
+              </span>
+              <span className="[text-wrap:balance]">
+                Copy story:{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  cmd
+                </kbd>{" "}
+                +{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  shift
+                </kbd>{" "}
+                +{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  C
+                </kbd>
+              </span>
+              <span className="[text-wrap:balance]">
+                Clear chat:{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  cmd
+                </kbd>{" "}
+                +{" "}
+                <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
+                  R
+                </kbd>
+              </span>
+            </p>
           </form>
-          <p className="tw-text-xs tw-text-gray-dark tw-pt-1 tw-flex sm:tw-gap-8 tw-gap-3 tw-text-center tw-justify-center tw-mt-2 sm:tw-flex-row tw-flex-col">
-            <span className="[text-wrap:balance]">
-              Submit:{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                cmd
-              </kbd>{" "}
-              +{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                return
-              </kbd>
-            </span>
-            <span className="[text-wrap:balance]">
-              Copy story:{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                cmd
-              </kbd>{" "}
-              +{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                shift
-              </kbd>{" "}
-              +{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                C
-              </kbd>
-            </span>
-            <span className="[text-wrap:balance]">
-              Clear chat:{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                cmd
-              </kbd>{" "}
-              +{" "}
-              <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-gray-light tw-bg-gray-lightest tw-rounded-[4px]">
-                R
-              </kbd>
-            </span>
-          </p>
         </section>
-        <div className="tw-flex tw-justify-center">
-          <p className="tw-text-xs tw-text-gray-dark tw-mt-5 [text-wrap:balance]">
-            Built with{" "}
+        <footer className="tw-flex tw-justify-center tw-mt-4 tw-mb-2">
+          <p className="tw-text-xs tw-text-slate-400 [text-wrap:balance]">
+            Built by{" "}
             <a
-              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
-              href="https://github.com/ascorbic/daneel"
-              target="_blank"
-            >
-              Daneel
-            </a>{" "}
-            by{" "}
-            <a
-              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
+              className="tw-underline tw-underline-offset-2 tw-decoration-slate-300"
               href="https://twitter.com/kaelig"
               target="_blank"
             >
               Kaelig
             </a>{" "}
-            ·{" "}
+            with{" "}
             <a
-              className="tw-underline tw-underline-offset-2 tw-decoration-gray-light"
-              href="https://github.com/kaelig/storybookgpt"
+              className="tw-underline tw-underline-offset-2 tw-decoration-slate-300"
+              href="https://github.com/ascorbic/daneel"
               target="_blank"
             >
-              Source
+              Daneel
+            </a>{" "}
+            ·{" "}
+            <a
+              className="tw-underline tw-underline-offset-2 tw-decoration-slate-300"
+              href="https://github.com/kaelig/storybookgpt#readme"
+              target="_blank"
+            >
+              Deploy your own StorybookGPT
+            </a>{" "}
+            ·{" "}
+            <a
+              className="tw-underline tw-underline-offset-2 tw-decoration-slate-300"
+              href="https://www.chromatic.com/customers/netlify"
+              target="_blank"
+            >
+              Netlify + Chromatic
             </a>
           </p>
-        </div>
+        </footer>
       </main>
     </App>
   );

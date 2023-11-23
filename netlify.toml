@@ -2,7 +2,7 @@
 publish = "dist/static"
 command = "npm run build"
 [dev]
-command = "npm run dev"
+command = "npm run impala"
 
 [template.environment]
 OPENAI_API_KEY = "your OpenAI API key"

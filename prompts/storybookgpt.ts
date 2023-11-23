@@ -19,4 +19,7 @@ export const /* StoryName */ = StoryTemplate.bind({});
   /* args */
 };`;
 
-export const samplePhrases = [];
+export const samplePhrases = [
+  // We could add a few prompts here to demo the bot,
+  // but for now let's omit them.
+];

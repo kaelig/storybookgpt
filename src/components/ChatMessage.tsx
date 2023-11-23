@@ -1,12 +1,5 @@
-import {
-  FunctionComponent,
-  DetailedHTMLProps,
-  TableHTMLAttributes,
-  useState,
-  useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
@@ -18,29 +11,9 @@ interface Props {
   message: ChatMessage;
 }
 
-// This lets us style any markdown tables that are rendered
-const CustomTable: FunctionComponent<
-  Omit<
-    DetailedHTMLProps<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>,
-    "ref"
-  > &
-    ReactMarkdownProps
-> = ({ children, ...props }) => {
-  return (
-    <div className="tw-overflow-x-auto tw-p-1">
-      <table
-        {...props}
-        className="tw-w-full tw-text-left tw-border-collapse tw-table-auto"
-      >
-        {children}
-      </table>
-    </div>
-  );
-};
-
 /**
  * This component renders a single chat message. It is rendered according to
- * whether it isa  message from the assistant or the user.
+ * whether it is a message from the assistant or the user.
  */
 
 export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
@@ -70,7 +43,7 @@ export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
                   children={String(children).replace(/\n$/, "")}
                   language="tsx"
                   style={style}
-                  className="tw-rounded-sm"
+                  className="tw-rounded-lg"
                 />
               );
             },
@@ -80,12 +53,11 @@ export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
     </div>
   ) : (
     <div className="tw-flex tw-items-end">
-      <div className="tw-bg-gray-lightest tw-border-gray-light tw-border tw-rounded-lg tw-py-2 tw-px-3 tw-mr-20 tw-w-full [&_p]:tw-max-w-[72ch]">
+      <div className="tw-bg-slate-200 tw-border-slate-300 tw-border tw-rounded-lg tw-py-2 tw-px-3 tw-mr-20 tw-w-full [&_p]:tw-max-w-[72ch] [&_p]:tw-my-1 tw-text-slate-900 tw-text-sm">
         <ReactMarkdown
           children={message.content}
           remarkPlugins={[remarkGfm]}
           components={{
-            table: CustomTable,
             code(props) {
               const { children, className, node, ...rest } = props;
               const match = /language-(\w+)/.exec(className || "");
@@ -96,7 +68,7 @@ export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
                   children={String(children).replace(/\n$/, "")}
                   language={match[1]}
                   style={style}
-                  className="tw-rounded-sm"
+                  className="tw-rounded"
                 />
               ) : (
                 <code {...rest} className={className}>
