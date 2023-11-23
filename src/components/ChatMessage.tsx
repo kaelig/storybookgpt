@@ -53,7 +53,7 @@ export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
     </div>
   ) : (
     <div className="tw-flex tw-items-end">
-      <div className="tw-bg-slate-200 tw-border-slate-300 tw-border tw-rounded-lg tw-py-2 tw-px-3 tw-mr-20 tw-w-full [&_p]:tw-max-w-[72ch] [&_p]:tw-my-1 tw-text-slate-900 tw-text-sm">
+      <div className="tw-bg-slate-100 tw-border-slate-300 tw-border tw-rounded-lg tw-py-2 tw-px-3 tw-mr-20 tw-w-full [&_p]:tw-max-w-[72ch] [&_p]:tw-my-1 tw-text-slate-900 tw-text-sm">
         <ReactMarkdown
           children={message.content}
           remarkPlugins={[remarkGfm]}
