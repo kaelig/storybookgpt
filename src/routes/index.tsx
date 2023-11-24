@@ -147,12 +147,18 @@ export default function Index() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              if (message === "") return;
               sendMessage(message, chatHistory);
+              setMessage("");
+            }}
+            onReset={(e) => {
+              e.preventDefault();
               setMessage("");
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
+                if (message === "") return;
                 sendMessage(message, chatHistory);
                 setMessage("");
               }
@@ -166,11 +172,10 @@ export default function Index() {
               {DISPLAY_CLEAR_BUTTON && chatHistory.length > 1 ? (
                 <button
                   className="tw-bg-slate-100 tw-text-slate-800 tw-py-2 tw-px-4 tw-rounded-l-lg tw-border-slate-300 tw-border"
-                  type="button"
+                  type="reset"
                   onClick={(e) => {
                     e.preventDefault();
                     clear();
-                    setMessage("");
                   }}
                 >
                   Clear
@@ -205,7 +210,7 @@ export default function Index() {
               ) : null}
             </div>
             <p className="tw-text-xs tw-text-slate-500 tw-pt-1 tw-flex sm:tw-gap-8 tw-gap-3 tw-text-center tw-justify-center tw-mt-2 sm:tw-flex-row tw-flex-col">
-              <span className="[text-wrap:balance]">
+              <button type="submit" className="[text-wrap:balance]">
                 Submit:{" "}
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   cmd
@@ -214,8 +219,25 @@ export default function Index() {
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   return
                 </kbd>
-              </span>
-              <span className="[text-wrap:balance]">
+              </button>
+              <button
+                onClick={async () => {
+                  const lastMessage = chatHistory[chatHistory.length - 1];
+                  if (lastMessage) {
+                    try {
+                      const code = lastMessage.content
+                        .replace(/[\s\S]*```tsx\n/, "")
+                        .replace(/\n```[\s\S]*/, "");
+
+                      await navigator.clipboard.writeText(code);
+                      alert("Story code response copied to clipboard");
+                    } catch (err) {
+                      console.error("Failed to copy text: ", err);
+                    }
+                  }
+                }}
+                className="[text-wrap:balance]"
+              >
                 Copy story:{" "}
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   cmd
@@ -228,8 +250,8 @@ export default function Index() {
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   C
                 </kbd>
-              </span>
-              <span className="[text-wrap:balance]">
+              </button>
+              <a href="/" className="[text-wrap:balance]">
                 Clear chat:{" "}
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   cmd
@@ -238,7 +260,7 @@ export default function Index() {
                 <kbd className="tw-px-1 tw-font-medium tw-py-[2px] tw-border tw-border-slate-200 tw-shadow-sm tw-bg-slate-100 tw-rounded-[4px]">
                   R
                 </kbd>
-              </span>
+              </a>
             </p>
           </form>
         </section>
