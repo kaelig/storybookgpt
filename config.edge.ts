@@ -20,7 +20,7 @@ export const appConfig: AppConfig = {
   // You should not need to change these values
   // See https://platform.openai.com/docs/api-reference/chat/create
   apiConfig: {
-    temperature: 1,
+    temperature: 0.3,
     max_tokens: 1024,
     top_p: 1,
     frequency_penalty: 0,
