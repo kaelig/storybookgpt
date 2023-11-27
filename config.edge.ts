@@ -1,7 +1,6 @@
 import type { AppConfig } from "./lib/edge/types.ts";
 
 import { prompt } from "./prompts/storybookgpt.ts";
-// import { prompt } from "./prompts/tour-guide.ts";
 
 export const appConfig: AppConfig = {
   // This should be set in an environment variable
@@ -30,5 +29,7 @@ export const appConfig: AppConfig = {
   // This is where the magic happens. See the README for details
   // This can be a plain string if you'd prefer, or you can use
   // information from the request or context to generate it.
-  systemPrompt: (_req) => prompt,
+  systemPrompt: (_req) => `${prompt}
+Knowledge cutoff April 2023.
+Current date: ${new Date().toDateString()}.`,
 };
