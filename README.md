@@ -9,7 +9,10 @@ Tailwind and a Netlify edge function that communicates securely with the OpenAI
 API, and. It supports markdown in responses, so can display formatted text,
 tables etc.
 
-### [Demo site](https://storybookgpt.netlify.app/) (private at the moment)
+### [Demo site](https://storybookgpt.netlify.app/) (available to Netlify employees only, due to OpenAI costs)
+
+![Step by step demo of StorybookGPT](https://github.com/kaelig/storybookgpt/assets/85783/e6613e6e-f76a-4fa0-9200-c125d133279e)
+
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kaelig/storybookgpt)
 
