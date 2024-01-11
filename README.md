@@ -42,7 +42,7 @@ tables etc.
 
 ## Customizing your bot
 
-This bot is preconfigured for Netlify's preferences when it comes to its stories formats, but each team has different preferences. For example, you may use Component Story Format 3.0 with vanilla JSX, whereas Netlify uses CSF 2.0 with TypeScript.
+This bot is preconfigured for Netlify's preferences when it comes to its stories formats, but each team has different preferences. For example, you may use Component Story Format 3.0 with vanilla JSX, whereas Netlify uses CSF 2.0 with TypeScript ([see CSF 3.0 prompt](https://github.com/kaelig/storybookgpt/blob/main/prompts/csf-v3.ts).
 
 ### Name
 
