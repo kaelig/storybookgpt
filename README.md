@@ -50,6 +50,18 @@ Edit your site title and description in `src/App.tsx`, `src/index.html`, `src/ro
 
 ### Prompt
 
+### New Prompt Templates
+
+We have added new prompt templates to support a wider range of frameworks and libraries. These templates are located in the `prompts/` directory:
+
+- `prompts/angular.ts`: Template for Angular framework.
+- `prompts/vue.ts`: Template for Vue framework.
+- `prompts/web-components.ts`: Template for Web Components.
+- `prompts/qwik.ts`: Template for Qwik framework.
+- `prompts/solid.ts`: Template for Solid framework.
+- `prompts/ember.ts`: Template for Ember framework.
+- `prompts/html.ts`: Template for HTML.
+
 The prompt is what tells your bot who it is. It is here that you give the bot
 its mission, personality and rules. The most important thing to do is create
 your own prompt to follow your team's conventions.
